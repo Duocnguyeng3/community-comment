@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
-import './App.css';
-import Home from './pages/Home';
-import Error from './pages/Error';
+import { Home, Error, CommentPage, CreateCommentPage } from './pages';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 function App() {
@@ -12,6 +10,10 @@ function App() {
         <Switch>
           <Route path="/" exact>
             <Home />
+          </Route>
+          <Route path="/comment/:id" children={<CommentPage />} />
+          <Route path="/create-comment">
+            <CreateCommentPage />
           </Route>
           <Route path="*">
             <Error />

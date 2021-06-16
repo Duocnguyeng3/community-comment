@@ -18,13 +18,13 @@ const Wrapper = styled.section`
   min-height: 100vh;
   display: grid;
   place-items: center;
-  background: var(--clr-primary-10);
   text-align: center;
   h1 {
+    color: var(--color-secondary);
     font-size: 10rem;
   }
   h3 {
-    color: var(--clr-grey-3);
+    color: var(--color-secondary);
     margin-bottom: 1.5rem;
   }
 `;
