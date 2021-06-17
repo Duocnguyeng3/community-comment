@@ -14,7 +14,6 @@ function LikeButton({ handleLike }) {
     const likeUpdate = await handleLike(likeType);
     if (likeUpdate === 'success') setLikeType(!likeType);
   };
-  console.log(loading);
 
   useEffect(() => {
     if (!loading) setLikeLoading(false);

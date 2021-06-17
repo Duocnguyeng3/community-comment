@@ -23,7 +23,7 @@ function CommentBox() {
 const Wrapper = styled.section`
   padding: 2rem;
   display: grid;
-  grid-template-columns: 1fr minmax(100rem, 125rem) 1fr;
+  grid-template-columns: 1fr minmax(0, 125rem) 1fr;
   margin-top: 5rem;
   margin-bottom: 10rem;
 

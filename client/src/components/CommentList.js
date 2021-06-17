@@ -30,6 +30,13 @@ const Wrapper = styled.section`
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 10rem;
     grid-row-gap: 6rem;
+
+    @media only screen and (max-width: 62.5em) {
+      grid-column-gap: 7rem;
+    }
+    @media only screen and (max-width: 37.5em) {
+      grid-template-columns: 1fr;
+    }
   }
 
   .alert-title {
