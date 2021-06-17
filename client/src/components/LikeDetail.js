@@ -1,21 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { FaThumbsUp, FaRegThumbsUp } from 'react-icons/fa';
+import { LikeButton } from '../components';
+import { useCommentContext } from '../context/comment_context.js';
+import { useLikeContext } from '../context/like_context.js';
 
 function LikeDetail({ singleComment, loading, error }) {
-  const { likes } = singleComment;
+  const { patchLike } = useLikeContext();
+  const { updateSingleLikeCount } = useCommentContext();
+
+  const { likes, _id } = singleComment;
+
+  const handleLike = async (type) => {
+    const comment = await patchLike(_id, type);
+    if (!comment) return;
+    updateSingleLikeCount(comment);
+    return 'success';
+  };
+
   if (loading || error) {
     return <></>;
   }
+
   return (
     <Wrapper>
       <hr />
       <div className="like-box">
         <p className="comment-count"> {likes} people like this post</p>
-        <button className="like-button">
-          <FaThumbsUp />
-          Like
-        </button>
+        <LikeButton handleLike={handleLike} />
       </div>
     </Wrapper>
   );

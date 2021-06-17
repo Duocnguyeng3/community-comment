@@ -10,6 +10,7 @@ import Loading from './Loading.js';
 import CommentDetail from './CommentDetail.js';
 import LikeDetail from './LikeDetail.js';
 import CommentInput from './CommentInput.js';
+import LikeButton from './LikeButton.js';
 
 export {
   Header,
@@ -24,4 +25,5 @@ export {
   CommentDetail,
   LikeDetail,
   CommentInput,
+  LikeButton,
 };

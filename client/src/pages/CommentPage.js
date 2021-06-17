@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Header, CommentDetail, LikeDetail } from '../components';
 import { useParams, Link } from 'react-router-dom';
@@ -7,15 +7,18 @@ import { useCommentContext } from '../context/comment_context.js';
 import { FaAngleLeft } from 'react-icons/fa';
 
 function CommentPage() {
+  const [loading, setLoading] = useState(true);
+
   const {
     fetchSingleComment,
     single_comment,
-    single_comment_loadings: loading,
+    // single_comment_loadings: loading,
     single_comment_error: error,
   } = useCommentContext();
   const { id } = useParams();
+
   useEffect(() => {
-    fetchSingleComment(`${comment_base_url}/comments/${id}`);
+    fetchSingleComment(`${comment_base_url}/comments/${id}`).then(() => setLoading(false));
   }, [id]);
 
   return (
@@ -52,3 +55,5 @@ const Wrapper = styled.main`
   }
 `;
 export default CommentPage;
+
+//  loading={loading}

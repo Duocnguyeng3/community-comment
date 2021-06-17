@@ -5,11 +5,14 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { CommentProvider } from './context/comment_context.js';
 import { InputProvider } from './context/input_context.js';
+import { LikeProvider } from './context/like_context.js';
 
 ReactDOM.render(
   <CommentProvider>
     <InputProvider>
-      <App />
+      <LikeProvider>
+        <App />
+      </LikeProvider>
     </InputProvider>
   </CommentProvider>,
   document.getElementById('root')

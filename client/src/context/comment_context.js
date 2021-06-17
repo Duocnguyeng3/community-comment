@@ -10,7 +10,7 @@ const initialState = {
   comment_loadings: false,
   comment_error: false,
   single_comment: {},
-  single_comment_loadings: false,
+  single_comment_loadings: true,
   single_comment_error: false,
 };
 export const CommentProvider = ({ children }) => {
@@ -49,12 +49,29 @@ export const CommentProvider = ({ children }) => {
     if (sortBy === 'most-likes') fetchComments(`${all_comment_url}?sort=-likes`);
   };
 
+  const updateLikeCount = (comment) => {
+    dispatch({ type: 'UPDATE_LIKE_COUNT', payload: { comment } });
+  };
+
+  const updateSingleLikeCount = (comment) => {
+    dispatch({ type: 'UPDATE_SINGLE_LIKE_COUNT', payload: { comment } });
+  };
+
   useEffect(() => {
     fetchComments(all_comment_url);
   }, []);
 
   return (
-    <CommentContext.Provider value={{ ...state, fetchComments, handleSort, fetchSingleComment }}>
+    <CommentContext.Provider
+      value={{
+        ...state,
+        fetchComments,
+        handleSort,
+        fetchSingleComment,
+        updateLikeCount,
+        updateSingleLikeCount,
+      }}
+    >
       {children}
     </CommentContext.Provider>
   );

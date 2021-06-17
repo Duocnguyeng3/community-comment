@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { getDate } from '../utils/getDate.js';
 import { Loading, Error } from '../components';
 
-function CommentDetail({ singleComment, loading, error }) {
+function CommentDetail({ singleComment, error, loading }) {
   if (loading) return <Loading />;
   if (error) return <Error />;
-  const { likes, title, createdAt, comment, _id } = singleComment;
+  const { title, createdAt, comment } = singleComment;
   return (
     <Wrapper>
       <span>{getDate(createdAt)}</span>

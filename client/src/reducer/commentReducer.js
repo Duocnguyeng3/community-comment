@@ -23,6 +23,22 @@ const reducer = (state, action) => {
     case 'GET_SINGLE_COMMENT_ERROR': {
       return { ...state, single_comment_loadings: false, single_comment_error: true };
     }
+    case 'UPDATE_LIKE_COUNT': {
+      const commentUpdate = action.payload.comment;
+      const newComments = state.comments.map((cmt) => {
+        if (cmt._id === commentUpdate._id) return commentUpdate;
+        return cmt;
+      });
+      return { ...state, comments: newComments };
+    }
+    case 'UPDATE_SINGLE_LIKE_COUNT': {
+      return {
+        ...state,
+        single_comment_loadings: false,
+        single_comment_error: false,
+        single_comment: { ...state.single_comment, likes: action.payload.comment.likes },
+      };
+    }
 
     default:
       return state;

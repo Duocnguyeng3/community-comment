@@ -82,7 +82,7 @@ export const InputProvider = ({ children }) => {
       return comment;
     } catch (err) {
       console.log(err);
-      // dispatch({ type: 'POST_COMMENT_ERROR' });
+      dispatch({ type: 'POST_COMMENT_ERROR' });
     }
   };
 

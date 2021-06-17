@@ -1,10 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { FaThumbsUp, FaRegThumbsUp } from 'react-icons/fa';
 import { getDate } from '../utils/getDate.js';
 import { Link } from 'react-router-dom';
+import { useLikeContext } from '../context/like_context.js';
+import { useCommentContext } from '../context/comment_context.js';
+import { LikeButton } from '../components';
 
+// import
 function CommentCard({ likes, title, createdAt, comment, _id }) {
+  const { patchLike } = useLikeContext();
+  const { updateLikeCount } = useCommentContext();
+
+  // đặt State riêng cho mỗi card để khi loading, nút like hiện khác biệt
+
+  // chuyển đổi trạng thái like
+  const handleLike = async (type) => {
+    const comment = await patchLike(_id, type);
+    if (!comment) return;
+    updateLikeCount(comment);
+    return 'success';
+  };
+
   return (
     <Wrapper>
       <Link to={`/comment/${_id}`} className="card">
@@ -13,10 +30,8 @@ function CommentCard({ likes, title, createdAt, comment, _id }) {
         <p>{comment}</p>
       </Link>
       <div className="like-box">
-        <button className="like-button">
-          <FaThumbsUp />
-          Like
-        </button>
+        <LikeButton handleLike={handleLike} />
+
         <span className="like-count">{likes}</span>
       </div>
     </Wrapper>
@@ -33,6 +48,14 @@ const Wrapper = styled.div`
     padding: 1rem 2rem;
     display: grid;
     grid-template-columns: 1fr;
+    border: 0.4rem solid transparent;
+    transition: all 0.1s;
+
+    &:hover,
+    &:active,
+    &:focus {
+      border: 0.4rem solid var(--color-decoration);
+    }
   }
 
   h2 {
@@ -74,28 +97,7 @@ const Wrapper = styled.div`
     position: absolute;
     bottom: -3.5rem;
   }
-  .like-button {
-    background-color: transparent;
-    border: none;
-    color: var(--color-secondary);
-    font-size: 1.8rem;
-    padding: 0.5rem 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
 
-    &:hover {
-      cursor: pointer;
-      color: var(--color-secondary);
-    }
-    & svg {
-      font-size: 2rem;
-    }
-  }
-
-  .like-count {
-    line-height: 1;
-  }
   .date {
     font-size: 1.4rem;
     margin-bottom: 1rem;
