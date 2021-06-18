@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import { FaThumbsUp, FaRegThumbsUp } from 'react-icons/fa';
 import { LikeButton } from '../components';
 import { useCommentContext } from '../context/comment_context.js';
-import { useLikeContext } from '../context/like_context.js';
+import { useSingleCommentContext } from '../context/single_comment_context.js';
 
 function LikeDetail({ singleComment, loading, error }) {
-  const { patchLike } = useLikeContext();
+  const { patchLike } = useSingleCommentContext();
   const { updateSingleLikeCount } = useCommentContext();
 
   const { likes, _id } = singleComment;

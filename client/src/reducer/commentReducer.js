@@ -40,6 +40,12 @@ const reducer = (state, action) => {
       };
     }
 
+    case 'DELETE_A_COMMENT': {
+      const id = action.payload.id;
+      const newComments = state.comments.filter((cmt) => cmt._id !== id);
+      return { ...state, comments: newComments };
+    }
+
     default:
       return state;
   }

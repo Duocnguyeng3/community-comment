@@ -1,34 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { BsHeart, BsHeartFill } from 'react-icons/bs';
 import { useSingleCommentContext } from '../context/single_comment_context.js';
 // import
-function LikeButton({ handleLike }) {
-  const { patch_like_loadings: loading } = useSingleCommentContext();
-  const [likeType, setLikeType] = useState(true);
+function DeleteButton({ handleDelete }) {
+  const { delete_loadings: loading } = useSingleCommentContext();
 
   // đặt State riêng cho mỗi card để khi loading, nút like hiện khác biệt
-  const [likeLoading, setLikeLoading] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
 
-  const handleLikeButton = async () => {
-    setLikeLoading(true);
-    const likeUpdate = await handleLike(likeType);
-    if (likeUpdate === 'success') setLikeType(!likeType);
+  const handleDeleteButton = async () => {
+    setDeleteLoading(true);
+    let result = await handleDelete();
+    if (result === 'fail') setDeleteLoading(!deleteLoading);
   };
 
   useEffect(() => {
-    if (!loading) setLikeLoading(false);
+    if (!loading) setDeleteLoading(false);
   }, [loading]);
 
   return (
-    <Wrapper className="like-button" onClick={() => handleLikeButton()} disabled={likeLoading}>
-      {likeLoading && (
+    <Wrapper onClick={() => handleDeleteButton()} disabled={deleteLoading}>
+      {deleteLoading && (
         <div className="layer">
           <div className="loader"></div>
         </div>
       )}
-      {likeType ? <BsHeart /> : <BsHeartFill />}
-      Like
+      Delete
     </Wrapper>
   );
 }
@@ -93,4 +90,4 @@ const Wrapper = styled.button`
   }
 `;
 
-export default LikeButton;
+export default DeleteButton;

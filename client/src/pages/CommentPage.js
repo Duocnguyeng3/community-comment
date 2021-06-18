@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Header, CommentDetail, LikeDetail } from '../components';
+import { Header, CommentDetail, LikeDetail, ErrorModal } from '../components';
 import { useParams, Link } from 'react-router-dom';
 import { comment_base_url } from '../utils/constants.js';
 import { useCommentContext } from '../context/comment_context.js';
@@ -9,7 +9,6 @@ import { FaAngleLeft } from 'react-icons/fa';
 function CommentPage() {
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
-  console.log('id', id);
   const {
     fetchSingleComment,
     single_comment,
@@ -23,6 +22,7 @@ function CommentPage() {
 
   return (
     <Wrapper>
+      <ErrorModal />
       <Header />
       <Link to="/" className="back-button">
         <FaAngleLeft />

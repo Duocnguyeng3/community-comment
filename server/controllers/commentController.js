@@ -99,3 +99,17 @@ exports.updateComment = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.deleteComment = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const comment = await Comment.findByIdAndDelete(id);
+    if (!comment) return next(new AppError("couldn't find comment with that ID", 404));
+    res.status(204).json({
+      status: 'success',
+      data: null,
+    });
+  } catch (err) {
+    next(err);
+  }
+};

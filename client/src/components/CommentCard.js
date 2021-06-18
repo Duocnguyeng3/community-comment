@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { FaThumbsUp, FaRegThumbsUp } from 'react-icons/fa';
 import { getDate } from '../utils/getDate.js';
 import { Link } from 'react-router-dom';
-import { useLikeContext } from '../context/like_context.js';
+import { useSingleCommentContext } from '../context/single_comment_context.js';
 import { useCommentContext } from '../context/comment_context.js';
-import { LikeButton } from '../components';
+import { LikeButton, DeleteButton } from '../components';
 
 // import
 function CommentCard({ likes, title, createdAt, comment, _id }) {
-  const { patchLike } = useLikeContext();
-  const { updateLikeCount } = useCommentContext();
+  const { patchLike, deleteComment } = useSingleCommentContext();
+  const { updateLikeCount, updateDeleteComment } = useCommentContext();
 
   // đặt State riêng cho mỗi card để khi loading, nút like hiện khác biệt
 
@@ -20,6 +19,12 @@ function CommentCard({ likes, title, createdAt, comment, _id }) {
     if (!comment) return;
     updateLikeCount(comment);
     return 'success';
+  };
+
+  const handleDelete = async () => {
+    const results = await deleteComment(_id);
+    if (results === 'success') return updateDeleteComment(_id);
+    return 'fail';
   };
 
   return (
@@ -33,6 +38,9 @@ function CommentCard({ likes, title, createdAt, comment, _id }) {
         <LikeButton handleLike={handleLike} />
 
         <span className="like-count">{likes}</span>
+      </div>
+      <div className="delete-button">
+        <DeleteButton handleDelete={handleDelete} />
       </div>
     </Wrapper>
   );
@@ -97,10 +105,22 @@ const Wrapper = styled.div`
     position: absolute;
     bottom: -3.5rem;
   }
+  .delete-button {
+    /* color: var(--color-secondary); */
+    display: flex;
+    position: absolute;
+    bottom: -3.5rem;
+    right: 0;
+  }
 
   .date {
     font-size: 1.4rem;
     margin-bottom: 1rem;
   }
+  /* .error-message {
+    display: inline-block;
+    font-size: 1.6rem;
+    color: red;
+  } */
 `;
 export default CommentCard;

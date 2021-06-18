@@ -11,6 +11,8 @@ import CommentDetail from './CommentDetail.js';
 import LikeDetail from './LikeDetail.js';
 import CommentInput from './CommentInput.js';
 import LikeButton from './LikeButton.js';
+import ErrorModal from './ErrorModal.js';
+import DeleteButton from './DeleteButton.js';
 
 export {
   Header,
@@ -26,4 +28,6 @@ export {
   LikeDetail,
   CommentInput,
   LikeButton,
+  ErrorModal,
+  DeleteButton,
 };

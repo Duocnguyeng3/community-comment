@@ -53,6 +53,9 @@ export const CommentProvider = ({ children }) => {
     dispatch({ type: 'UPDATE_LIKE_COUNT', payload: { comment } });
   };
 
+  const updateDeleteComment = (id) => {
+    dispatch({ type: 'DELETE_A_COMMENT', payload: { id } });
+  };
   const updateSingleLikeCount = (comment) => {
     dispatch({ type: 'UPDATE_SINGLE_LIKE_COUNT', payload: { comment } });
   };
@@ -70,6 +73,7 @@ export const CommentProvider = ({ children }) => {
         fetchSingleComment,
         updateLikeCount,
         updateSingleLikeCount,
+        updateDeleteComment,
       }}
     >
       {children}

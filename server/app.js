@@ -13,6 +13,10 @@ app.use(express.static(path.resolve(__dirname, '../client/build')));
 // 2. ROUTER HANDLER
 app.use('/api/v1/comments', commentRouter);
 
+app.all('/api/v1/*', (req, res, next) => {
+  next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
+});
+
 app.all('*', (req, res, next) => {
   // next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
   res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
