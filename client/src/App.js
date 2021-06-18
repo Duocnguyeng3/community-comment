@@ -12,10 +12,10 @@ function App() {
             <Home />
           </Route>
           <Route path="/comment/:id" children={<CommentPage />} />
-          <Route path="/create-comment">
+          <Route exact path="/create-comment">
             <CreateCommentPage />
           </Route>
-          <Route path="*">
+          <Route exact path="*">
             <Error />
           </Route>
         </Switch>

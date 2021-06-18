@@ -8,14 +8,14 @@ import { FaAngleLeft } from 'react-icons/fa';
 
 function CommentPage() {
   const [loading, setLoading] = useState(true);
-
+  const { id } = useParams();
+  console.log('id', id);
   const {
     fetchSingleComment,
     single_comment,
     // single_comment_loadings: loading,
     single_comment_error: error,
   } = useCommentContext();
-  const { id } = useParams();
 
   useEffect(() => {
     fetchSingleComment(`${comment_base_url}/comments/${id}`).then(() => setLoading(false));
