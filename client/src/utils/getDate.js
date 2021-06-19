@@ -11,14 +11,14 @@ export const getDate = (dateObject) => {
   const seconds = padStartTime(localDate.getSeconds());
 
   const dayCount = new Date().getDate() - day;
-  const hourCount = new Date().getHours() - hour;
-  const minutesCount = new Date().getMinutes() - minutes;
+  const hourCount = Math.floor((Date.now() - localDate) / (1000 * 60 * 60));
+  const minutesCount = Math.floor((Date.now() - localDate) / (1000 * 60));
 
   if (dayCount === 0) {
-    if (hourCount > 1) return `${hourCount}h ${minutesCount}m ago`;
+    if (hourCount >= 1) return `${hourCount}h ago`;
     if (minutesCount < 60) return `${minutesCount} minutes ago`;
   }
-  if (dayCount === 1) return `  yesterday`;
+  if (dayCount === 1) return `yesterday`;
   if (dayCount > 1 && dayCount < 7) return ` ${dayCount} days ago`;
   if (dayCount >= 7 && dayCount < 14) return ` last week`;
   return `${day}/${month}/${year}  ${hour}:${minutes}:${seconds}`;
