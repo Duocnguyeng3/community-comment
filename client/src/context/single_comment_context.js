@@ -70,7 +70,7 @@ export const SingleCommentProvider = ({ children }) => {
   const patchLike = async (id, type) => {
     dispatch({ type: 'PATCH_LIKE_BEGIN' });
     try {
-      const res = await axios.patch(`${comment_base_url}/commentss/${id}`, { like: type });
+      const res = await axios.patch(`${comment_base_url}/comments/${id}`, { like: type });
       if (!res) dispatch({ type: 'PATCH_LIKE_ERROR' });
       const comment = res.data.data.comment;
       dispatch({ type: 'PATCH_LIKE_SUCCESS', payload: { comment } });
@@ -88,7 +88,7 @@ export const SingleCommentProvider = ({ children }) => {
   const deleteComment = async (id) => {
     dispatch({ type: 'DELETE_BEGIN' });
     try {
-      const res = await axios.delete(`${comment_base_url}/commentss/${id}`);
+      const res = await axios.delete(`${comment_base_url}/comments/${id}`);
       if (!res) dispatch({ type: 'DELETE_ERROR' });
       dispatch({ type: 'DELETE_SUCCESS' });
       return 'success';
