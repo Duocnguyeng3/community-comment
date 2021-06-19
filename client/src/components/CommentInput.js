@@ -69,7 +69,7 @@ const Wrapper = styled.div`
     color: var(--color-secondary);
     font-weight: 600;
     margin-top: 5rem;
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     height: 30rem;
   }
   .error-message {

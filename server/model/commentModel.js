@@ -6,7 +6,7 @@ const CommentSchema = new mongoose.Schema({
     require: [true, 'A comment must have a title'],
     trim: true,
     maxlength: [40, 'A title must have less or equal than 40 character'],
-    minlength: [5, 'A title must have more or equal than 10 character'],
+    minlength: [5, 'A title must have more or equal than 5 character'],
   },
   comment: {
     type: String,
@@ -19,7 +19,7 @@ const CommentSchema = new mongoose.Schema({
   },
   createdAt: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
   },
 });
 

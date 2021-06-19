@@ -15,23 +15,31 @@ function SearchBox() {
   );
 }
 const Wrapper = styled.div`
+  margin-bottom: 2rem;
+  flex: 1;
+  max-width: 50rem;
+  min-width: 15rem;
+
   form {
     display: flex;
-    align-items: flex-end;
+    margin-right: 2rem;
   }
 
   input {
     font-size: 2.5rem;
-    height: 100%;
+    width: 100%;
     background-color: transparent;
     color: #fff;
     outline: none;
-    border: none;
-    border-radius: 5px;
+    border: 2px solid transparent;
+    transition: all 0.2s;
+    padding: 0;
+    padding-right: 3.5rem;
+    display: flex;
+    align-items: center;
 
     &:placeholder {
       font-size: 2rem;
-      color: red;
     }
   }
 
@@ -42,9 +50,9 @@ const Wrapper = styled.div`
     background-color: transparent;
     border: none;
     align-items: center;
-    right: 0;
     transition: all 0.2s;
-
+    margin-left: -3rem;
+    outline: none;
     &:hover {
       transform: scale(1.1);
       cursor: pointer;
@@ -53,6 +61,11 @@ const Wrapper = styled.div`
 
   input:not(:placeholder-shown) + button {
     color: var(--color-secondary);
+  }
+  input:focus {
+    border: 2px solid var(--color-primary-light);
+    padding: 0.5rem 1rem;
+    padding-right: 3.5rem;
   }
 `;
 export default SearchBox;

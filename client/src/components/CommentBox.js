@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { CommentCard, CommentList, Sort, SearchBox } from '../components';
+import { CommentList, Sort, SearchBox } from '../components';
 import { Link } from 'react-router-dom';
 
 function CommentBox() {
@@ -28,12 +28,11 @@ const Wrapper = styled.section`
   margin-bottom: 10rem;
 
   .input-link {
-    background-color: var(--color-secondary);
-    color: var(--color-primary);
+    background-color: var(--color-primary);
+    color: var(--color-primary-light);
     font-size: 2rem;
     grid-column: 2/3;
     height: 10rem;
-    width: 30%;
     margin-bottom: 5rem;
     display: flex;
     align-items: center;
@@ -41,7 +40,11 @@ const Wrapper = styled.section`
     padding-left: 2rem;
     font-size: 2rem;
     font-weight: 600;
-    color: var(--color-primary-light);
+    border: 2px solid var(--color-primary-light);
+    transition: all 0.2s;
+    &:hover {
+      border: 2px solid var(--color-secondary);
+    }
   }
   .comment-list-container {
     grid-column: 2/3;
@@ -50,9 +53,10 @@ const Wrapper = styled.section`
     grid-column: 2/3;
     align-self: center;
     display: flex;
+    flex-wrap: wrap;
     align-items: flex-end;
     justify-content: space-between;
-    margin-bottom: 2rem;
+    /* margin-bottom: 2rem; */
   }
 `;
 export default CommentBox;

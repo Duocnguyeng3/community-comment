@@ -7,6 +7,7 @@ const CommentContext = React.createContext();
 
 const initialState = {
   comments: [],
+  searchComment: [],
   comment_loadings: false,
   comment_error: false,
   single_comment: {},
@@ -58,6 +59,10 @@ export const CommentProvider = ({ children }) => {
   };
   const updateSingleLikeCount = (comment) => {
     dispatch({ type: 'UPDATE_SINGLE_LIKE_COUNT', payload: { comment } });
+  };
+
+  const searchComment = () => {
+    dispatch({ type: 'SEARCH_COMMENT', payload: {} });
   };
 
   useEffect(() => {

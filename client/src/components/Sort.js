@@ -19,6 +19,8 @@ function Sort() {
 }
 
 const Wrapper = styled.div`
+  margin-bottom: 2rem;
+
   form {
     font-size: 1.8rem;
     color: var(--color-secondary);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { getDate } from '../utils/getDate.js';
 import { Link } from 'react-router-dom';

@@ -26,6 +26,7 @@ const Wrapper = styled.div`
   .detail-comment {
     margin-top: 5rem;
     font-size: 1.6rem;
+    white-space: pre-wrap;
     max-width: 100rem;
   }
   svg {

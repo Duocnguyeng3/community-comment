@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FaSearch } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 function Header() {
   return (
     <Wrapper>
-      <h2>Community</h2>
+      <Link to="/">
+        <h2>Community</h2>
+      </Link>
     </Wrapper>
   );
 }
@@ -13,9 +15,11 @@ const Wrapper = styled.header`
   display: flex;
   align-items: center;
   background-color: var(--color-primary);
-  color: var(--color-secondary);
   overflow: hidden;
-
+  a {
+    text-decoration: none;
+    color: var(--color-secondary);
+  }
   h2 {
     font-size: 5rem;
     padding: 2rem;

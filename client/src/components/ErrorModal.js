@@ -6,9 +6,9 @@ import { useSingleCommentContext } from '../context/single_comment_context.js';
 
 function ErrorModal() {
   //   const [error, setError] = useState({ message: '', display: false });
-  const { patch_like_error, error_message, resetError } = useSingleCommentContext();
+  const { patch_like_error, error_message, resetError, delete_error } = useSingleCommentContext();
 
-  if (!patch_like_error) return <></>;
+  if (!patch_like_error && !delete_error) return <></>;
 
   return (
     <Wrapper>
