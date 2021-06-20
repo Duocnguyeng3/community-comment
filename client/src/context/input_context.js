@@ -62,7 +62,7 @@ export const InputProvider = ({ children }) => {
     e.preventDefault();
     const title = state.new_comment.title;
     const comment = state.new_comment.comment;
-    const titlePass = title.length > 10 && title.length < 40;
+    const titlePass = title.length > 5 && title.length < 40;
     const commentPass = comment.length < 10000;
     if (titlePass && commentPass) return { title, comment };
     dispatch({
