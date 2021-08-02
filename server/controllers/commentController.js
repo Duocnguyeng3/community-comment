@@ -3,7 +3,7 @@ const fs = require('fs');
 const Comment = require('../model/commentModel');
 const commentsLocation = `${__dirname}/../../dev-data/data/comments.json`;
 const dataComments = JSON.parse(fs.readFileSync(commentsLocation));
-const AppError = require('../utils/AppError');
+const AppError = require('../utils/appError');
 
 exports.getAllComment = async (req, res, next) => {
   try {

@@ -9,7 +9,7 @@ const cookieParser = require('cookie-parser');
 
 const commentRouter = require('./routes/commentRoutes');
 const userRouter = require('./routes/userRoutes');
-const AppError = require('./utils/AppError');
+const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 const authController = require('./controllers/authController');
 
