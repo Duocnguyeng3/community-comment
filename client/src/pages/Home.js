@@ -4,7 +4,7 @@ import { Header, CommentBox, ErrorModal } from '../components';
 function Home() {
   return (
     <main>
-      <ErrorModal />
+      {/* <ErrorModal /> */}
       <Header />
       <CommentBox />
     </main>

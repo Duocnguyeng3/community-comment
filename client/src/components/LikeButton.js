@@ -2,23 +2,31 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { BsHeart, BsHeartFill } from 'react-icons/bs';
 import { useSingleCommentContext } from '../context/single_comment_context.js';
-// import
-function LikeButton({ handleLike }) {
+import { useAuthContext } from '../context/auth_context';
+
+function LikeButton({ handleLike, likedBy }) {
   const { patch_like_loadings: loading } = useSingleCommentContext();
   const [likeType, setLikeType] = useState(true);
+  const { user } = useAuthContext();
 
   // đặt State riêng cho mỗi card để khi loading, nút like hiện khác biệt
   const [likeLoading, setLikeLoading] = useState(false);
 
   const handleLikeButton = async () => {
     setLikeLoading(true);
-    const likeUpdate = await handleLike(likeType);
-    if (likeUpdate === 'success') setLikeType(!likeType);
+    await handleLike(likeType);
   };
 
   useEffect(() => {
     if (!loading) setLikeLoading(false);
   }, [loading]);
+
+  useEffect(() => {
+    const type = likedBy.some((e) => {
+      return e.userId === user._id;
+    });
+    setLikeType(!type);
+  }, [likedBy]);
 
   return (
     <Wrapper className="like-button" onClick={() => handleLikeButton()} disabled={likeLoading}>

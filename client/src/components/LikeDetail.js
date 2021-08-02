@@ -7,14 +7,14 @@ import { useSingleCommentContext } from '../context/single_comment_context.js';
 
 function LikeDetail({ singleComment, loading, error }) {
   const { patchLike } = useSingleCommentContext();
-  const { updateSingleLikeCount } = useCommentContext();
+  const { updateSingleComment } = useCommentContext();
 
   const { likes, _id } = singleComment;
 
   const handleLike = async (type) => {
     const comment = await patchLike(_id, type);
     if (!comment) return;
-    updateSingleLikeCount(comment);
+    updateSingleComment(comment);
     return 'success';
   };
 
@@ -27,7 +27,7 @@ function LikeDetail({ singleComment, loading, error }) {
       <hr />
       <div className="like-box">
         <p className="comment-count"> {likes} people like this post</p>
-        <LikeButton handleLike={handleLike} />
+        <LikeButton handleLike={handleLike} likedBy={singleComment.likedBy} />
       </div>
     </Wrapper>
   );

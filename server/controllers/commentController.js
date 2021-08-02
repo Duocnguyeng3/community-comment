@@ -79,15 +79,47 @@ exports.getComment = async (req, res, next) => {
 
 exports.updateComment = async (req, res, next) => {
   try {
-    const id = req.params.id;
-    const { like, ...body } = req.body;
-    const comment = await Comment.findByIdAndUpdate(
-      id,
-      { ...body, $inc: { likes: like ? 1 : -1 } },
-      { new: true, runValidators: true }
-    );
+    const { id } = req.params;
+    const comment = await Comment.findByIdAndUpdate(id, { ...body }, { new: true, runValidators: true });
 
     if (!comment) return next(new AppError("couldn't find comment with that ID", 404));
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        comment,
+      },
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+exports.reactComment = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { reaction } = req.query;
+    const { _id: userId, name: userName } = req.user;
+    let comment;
+    if (!id || !reaction)
+      return next(new AppError('please provide id and type of reaction in your URL', 404));
+
+    if (reaction === 'true') {
+      comment = await Comment.findOneAndUpdate(
+        { _id: id, 'likedBy.userId': { $ne: userId } },
+        { $push: { likedBy: { userId, userName } } },
+        { new: true }
+      );
+    } else if (reaction === 'false') {
+      comment = await Comment.findOneAndUpdate(
+        { _id: id },
+        { $pull: { likedBy: { userId } } },
+        { new: true, runValidators: true }
+      );
+    }
+    if (!comment)
+      return next(new AppError("couldn't find comment with that ID/ you cannot like a post twice", 404));
+
+    await comment.save();
 
     res.status(200).json({
       status: 'success',

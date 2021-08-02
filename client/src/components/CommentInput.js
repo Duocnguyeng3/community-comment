@@ -9,6 +9,7 @@ function CommentInput() {
   const history = useHistory();
 
   const {
+    new_comment,
     updateInput,
     new_comment_loadings: loading,
     new_comment_error: error,
@@ -29,9 +30,22 @@ function CommentInput() {
   return (
     <Wrapper>
       <form onSubmit={(e) => e.preventDefault()}>
-        <input name="title" type="text" className="title" placeholder="Title" onChange={updateInput} />
+        <input
+          name="title"
+          type="text"
+          className="title"
+          placeholder="Title"
+          onChange={updateInput}
+          value={new_comment.title}
+        />
         <p className="error-message">{error_message}</p>
-        <textarea name="comment" type="text" className="comment" onChange={updateInput} />
+        <textarea
+          name="comment"
+          type="text"
+          className="comment"
+          onChange={updateInput}
+          value={new_comment.comment}
+        />
         <div className="control-box">
           <button className="btn cancel-btn">Cancel</button>
           <button className="btn" onClick={(e) => handleSubmit(e)}>

@@ -1,8 +1,10 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useReducer } from 'react';
 // import reducer from '../reducer/commentReducer';
-import { useHistory } from 'react-router-dom';
 import { comment_base_url } from '../utils/constants';
+import { useAuthContext } from './auth_context';
+import { useViewContext } from './view_context.js';
+
 const reducer = (state, action) => {
   switch (action.type) {
     case 'UPDATE_TITLE': {
@@ -18,7 +20,7 @@ const reducer = (state, action) => {
       };
     }
     case 'POST_COMMENT_BEGIN': {
-      return { ...state, error_message: '', new_comment_loadings: true, new_comment_error: false };
+      return { ...state, error_message: '', new_comment_loadings: true };
     }
     case 'SET_ERROR_MESSAGE': {
       return {
@@ -29,14 +31,14 @@ const reducer = (state, action) => {
       };
     }
     case 'POST_COMMENT_SUCCESS': {
-      const title = action.payload.comment.title;
-      const comment = action.payload.comment.comment;
       return {
         ...state,
         new_comment_loadings: false,
-        new_comment_error: false,
         new_comment: { title: '', comment: '' },
       };
+    }
+    case 'POST_COMMENT_ERROR': {
+      return { ...state, new_comment_loadings: false };
     }
 
     default:
@@ -51,12 +53,12 @@ const initialState = {
     comment: '',
   },
   new_comment_loadings: false,
-  new_comment_error: false,
   error_message: '',
 };
 export const InputProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const history = useHistory();
+  const { showNotification } = useViewContext();
+  const { user } = useAuthContext();
 
   const checkCommentObject = (e) => {
     e.preventDefault();
@@ -75,7 +77,10 @@ export const InputProvider = ({ children }) => {
     if (!commentObj) return;
     dispatch({ type: 'POST_COMMENT_BEGIN' });
     try {
-      const res = await axios.post(url, commentObj);
+      const res = await axios.post(url, {
+        ...commentObj,
+        createdBy: { userId: user._id, userName: user.name },
+      });
       if (!res) dispatch({ type: 'POST_COMMENT_ERROR' });
       const comment = res.data.data.comment;
       dispatch({ type: 'POST_COMMENT_SUCCESS', payload: { comment } });
@@ -83,6 +88,7 @@ export const InputProvider = ({ children }) => {
     } catch (err) {
       console.log(err);
       dispatch({ type: 'POST_COMMENT_ERROR' });
+      showNotification('fail', err.response?.data?.message || 'There was an error');
     }
   };
 

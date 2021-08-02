@@ -2,17 +2,17 @@ import axios from 'axios';
 import React, { useContext, useReducer } from 'react';
 // import reducer from '../reducer/commentReducer';
 import { comment_base_url } from '../utils/constants';
-import { useCommentContext } from './comment_context';
+import { useViewContext } from './view_context.js';
+import { useAuthContext } from './auth_context';
 
 const reducer = (state, action) => {
   switch (action.type) {
     case 'PATCH_LIKE_BEGIN': {
-      return { ...state, error_message: '', patch_like_loadings: true, patch_like_error: false };
+      return { ...state, patch_like_loadings: true, patch_like_error: false };
     }
     case 'PATCH_LIKE_SUCCESS': {
       return {
         ...state,
-        error_message: '',
         patch_like_loadings: false,
         patch_like_error: false,
         liked_comment: action.payload.comment,
@@ -21,23 +21,12 @@ const reducer = (state, action) => {
     case 'PATCH_LIKE_ERROR': {
       return {
         ...state,
-        error_message: action.payload.message,
         patch_like_loadings: false,
         patch_like_error: true,
       };
     }
-    case 'RESET_ERROR': {
-      return {
-        ...state,
-        error_message: '',
-        patch_like_loadings: false,
-        patch_like_error: false,
-        delete_loadings: false,
-        delete_error: false,
-      };
-    }
     case 'DELETE_BEGIN': {
-      return { ...state, error_message: '', delete_loadings: true, delete_error: false };
+      return { ...state, delete_loadings: true, delete_error: false };
     }
     case 'DELETE_SUCCESS': {
       return { ...state, delete_loadings: false, delete_error: false };
@@ -45,7 +34,6 @@ const reducer = (state, action) => {
     case 'DELETE_ERROR': {
       return {
         ...state,
-        error_message: action.payload.message,
         delete_loadings: false,
         delete_error: true,
       };
@@ -62,27 +50,25 @@ const initialState = {
   patch_like_error: false,
   delete_loadings: false,
   delete_error: false,
-  error_message: '',
 };
 export const SingleCommentProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const { showNotification } = useViewContext();
+  const { user } = useAuthContext();
 
   const patchLike = async (id, type) => {
     dispatch({ type: 'PATCH_LIKE_BEGIN' });
     try {
-      const res = await axios.patch(`${comment_base_url}/comments/${id}`, { like: type });
+      const res = await axios.patch(`${comment_base_url}/comments/${id}/react?reaction=${type}`);
       if (!res) dispatch({ type: 'PATCH_LIKE_ERROR' });
       const comment = res.data.data.comment;
       dispatch({ type: 'PATCH_LIKE_SUCCESS', payload: { comment } });
       return comment;
     } catch (err) {
-      console.log(err);
-      dispatch({ type: 'PATCH_LIKE_ERROR', payload: { message: 'There was an error' } });
+      console.log(err.response.data);
+      dispatch({ type: 'PATCH_LIKE_ERROR' });
+      showNotification('fail', err.response?.data?.message || 'There was an error');
     }
-  };
-
-  const resetError = () => {
-    dispatch({ type: 'RESET_ERROR' });
   };
 
   const deleteComment = async (id) => {
@@ -94,12 +80,13 @@ export const SingleCommentProvider = ({ children }) => {
       return 'success';
     } catch (err) {
       console.log(err);
-      dispatch({ type: 'DELETE_ERROR', payload: { message: 'There was an error' } });
+      dispatch({ type: 'DELETE_ERROR' });
+      showNotification('fail', err.response?.data?.message || 'There was an error');
     }
   };
 
   return (
-    <SingleCommentContext.Provider value={{ ...state, patchLike, resetError, deleteComment }}>
+    <SingleCommentContext.Provider value={{ ...state, patchLike, deleteComment }}>
       {children}
     </SingleCommentContext.Provider>
   );

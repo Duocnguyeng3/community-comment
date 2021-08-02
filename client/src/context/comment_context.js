@@ -16,8 +16,7 @@ const initialState = {
 };
 export const CommentProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-
-  const fetchComments = async (url) => {
+  const fetchComments = async (url = all_comment_url) => {
     dispatch({ type: 'GET_COMMENT_BEGIN' });
     try {
       const res = await axios(url);
@@ -57,8 +56,9 @@ export const CommentProvider = ({ children }) => {
   const updateDeleteComment = (id) => {
     dispatch({ type: 'DELETE_A_COMMENT', payload: { id } });
   };
-  const updateSingleLikeCount = (comment) => {
-    dispatch({ type: 'UPDATE_SINGLE_LIKE_COUNT', payload: { comment } });
+
+  const updateSingleComment = (comment) => {
+    dispatch({ type: 'UPDATE_SINGLE_COMMENT', payload: { comment } });
   };
 
   const searchComment = () => {
@@ -77,7 +77,7 @@ export const CommentProvider = ({ children }) => {
         handleSort,
         fetchSingleComment,
         updateLikeCount,
-        updateSingleLikeCount,
+        updateSingleComment,
         updateDeleteComment,
       }}
     >

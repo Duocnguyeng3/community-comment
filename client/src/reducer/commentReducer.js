@@ -31,12 +31,12 @@ const reducer = (state, action) => {
       });
       return { ...state, comments: newComments };
     }
-    case 'UPDATE_SINGLE_LIKE_COUNT': {
+    case 'UPDATE_SINGLE_COMMENT': {
       return {
         ...state,
         single_comment_loadings: false,
         single_comment_error: false,
-        single_comment: { ...state.single_comment, likes: action.payload.comment.likes },
+        single_comment: { ...state.single_comment, ...action.payload.comment },
       };
     }
 

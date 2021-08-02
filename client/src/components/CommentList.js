@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { CommentCard, Error, Loading } from '../components';
 import { useCommentContext } from '../context/comment_context';
@@ -12,7 +12,6 @@ function CommentList() {
   if (error) {
     return <Error />;
   }
-
   return (
     <Wrapper>
       <div className="comment-container">

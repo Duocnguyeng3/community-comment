@@ -7,10 +7,9 @@ import { useCommentContext } from '../context/comment_context.js';
 import { LikeButton, DeleteButton } from '../components';
 
 // import
-function CommentCard({ likes, title, createdAt, comment, _id }) {
+function CommentCard({ likes, title, createdAt, comment, _id, createdBy, likedBy }) {
   const { patchLike, deleteComment } = useSingleCommentContext();
   const { updateLikeCount, updateDeleteComment } = useCommentContext();
-
   // đặt State riêng cho mỗi card để khi loading, nút like hiện khác biệt
 
   // chuyển đổi trạng thái like
@@ -24,18 +23,20 @@ function CommentCard({ likes, title, createdAt, comment, _id }) {
   const handleDelete = async () => {
     const results = await deleteComment(_id);
     if (results === 'success') return updateDeleteComment(_id);
-    return 'fail';
   };
 
   return (
     <Wrapper>
       <Link to={`/comment/${_id}`} className="card">
-        <div className="date">{getDate(createdAt)}</div>
+        <div className="comment-info">
+          <div>{getDate(createdAt)}</div>
+          <div>By: {createdBy?.userName}</div>
+        </div>
         <h2>{title}</h2>
         <p>{comment}</p>
       </Link>
       <div className="like-box">
-        <LikeButton handleLike={handleLike} />
+        <LikeButton handleLike={handleLike} likedBy={likedBy} />
 
         <span className="like-count">{likes}</span>
       </div>
@@ -113,7 +114,9 @@ const Wrapper = styled.div`
     right: 0;
   }
 
-  .date {
+  .comment-info {
+    display: flex;
+    justify-content: space-between;
     font-size: 1.4rem;
     margin-bottom: 1rem;
   }

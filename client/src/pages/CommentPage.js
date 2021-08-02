@@ -22,7 +22,6 @@ function CommentPage() {
 
   return (
     <Wrapper>
-      <ErrorModal />
       <Header />
       <Link to="/" className="back-button">
         <FaAngleLeft />

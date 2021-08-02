@@ -2,20 +2,20 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FaRegWindowClose } from 'react-icons/fa';
 import { AiOutlineClose } from 'react-icons/ai';
-import { useSingleCommentContext } from '../context/single_comment_context.js';
+import { useViewContext } from '../context/view_context.js';
 
-function ErrorModal() {
-  const { patch_like_error, error_message, resetError, delete_error } = useSingleCommentContext();
+function NotificationPopup() {
+  const { notificationShow, closeNotification, type, message } = useViewContext();
 
-  if (!patch_like_error && !delete_error) return <></>;
-
-  return (
+  return !notificationShow ? (
+    <></>
+  ) : (
     <Wrapper>
-      <div className="modal">
-        <button className="close-btn" onClick={resetError}>
+      <div className="popup">
+        <button className="close-btn" onClick={closeNotification}>
           <AiOutlineClose />
         </button>
-        <h2 className="error-message">{error_message}</h2>
+        <h2 className="popup-message">{message}</h2>
       </div>
     </Wrapper>
   );
@@ -33,12 +33,12 @@ const Wrapper = styled.div`
   width: 100%;
   background-color: rgba(0, 0, 0, 0.7);
   z-index: 100;
-
-  .error-message {
+  /* display: none; */
+  .popup-message {
     font-size: 3rem;
     color: red;
   }
-  .modal {
+  .popup {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -46,7 +46,7 @@ const Wrapper = styled.div`
     background-color: var(--color-secondary);
     z-index: 11;
     border-radius: 3px;
-    padding: 2rem;
+    padding: 2rem 4rem;
   }
   .close-btn {
     background: none;
@@ -59,7 +59,7 @@ const Wrapper = styled.div`
     border: 1px solid transparent;
     border-radius: 50%;
     margin-top: -1rem;
-    margin-right: -1rem;
+    margin-right: -3rem;
     svg {
       margin-left: auto;
     }
@@ -67,7 +67,5 @@ const Wrapper = styled.div`
       border: 1px solid var(--color-primary);
     }
   }
-  .error-message {
-  }
 `;
-export default ErrorModal;
+export default NotificationPopup;

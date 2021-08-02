@@ -7,6 +7,7 @@
   --color-primary-light: #5d5d5d;
   --color-primary-light-2: #bbb;
   --color-decoration: #06755f;
+  --color-decoration-light: #19a88c;
 }
 
 *,
@@ -65,4 +66,22 @@ html {
 .white {
   background-color: #fff;
   color: #000;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

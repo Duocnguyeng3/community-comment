@@ -6,15 +6,21 @@ import reportWebVitals from './reportWebVitals';
 import { CommentProvider } from './context/comment_context.js';
 import { InputProvider } from './context/input_context.js';
 import { SingleCommentProvider } from './context/single_comment_context.js';
+import { AuthProvider } from './context/auth_context.js';
+import { ViewProvider } from './context/view_context.js';
 
 ReactDOM.render(
-  <CommentProvider>
-    <InputProvider>
-      <SingleCommentProvider>
-        <App />
-      </SingleCommentProvider>
-    </InputProvider>
-  </CommentProvider>,
+  <ViewProvider>
+    <AuthProvider>
+      <CommentProvider>
+        <InputProvider>
+          <SingleCommentProvider>
+            <App />
+          </SingleCommentProvider>
+        </InputProvider>
+      </CommentProvider>
+    </AuthProvider>
+  </ViewProvider>,
   document.getElementById('root')
 );
 

@@ -1,4 +1,8 @@
 const mongoose = require('mongoose');
+// const IdentifiedUserSchema = new mongoose.Schema({
+//   userId: mongoose.Types.ObjectId,
+//   userName: String,
+// });
 
 const CommentSchema = new mongoose.Schema({
   title: {
@@ -21,8 +25,17 @@ const CommentSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  createdBy: {
+    type: { userId: String, userName: String },
+  },
+  likedBy: {
+    type: [{ userId: String, userName: String }],
+  },
 });
-
+CommentSchema.pre('save', function (next) {
+  this.likes = this.likedBy.length;
+  next();
+});
 const Comment = mongoose.model('Comment', CommentSchema);
 
 module.exports = Comment;

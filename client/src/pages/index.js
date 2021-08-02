@@ -2,5 +2,7 @@ import Home from './Home';
 import Error from './Error';
 import CommentPage from './CommentPage';
 import CreateCommentPage from './CreateCommentPage';
+import Login from './LoginPage';
+import Signup from './SignupPage';
 
-export { Home, Error, CommentPage, CreateCommentPage };
+export { Home, Error, CommentPage, CreateCommentPage, Login, Signup };

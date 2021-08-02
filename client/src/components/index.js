@@ -13,6 +13,10 @@ import CommentInput from './CommentInput.js';
 import LikeButton from './LikeButton.js';
 import ErrorModal from './ErrorModal.js';
 import DeleteButton from './DeleteButton.js';
+import LoginForm from './LoginForm.js';
+import SignupForm from './SignupForm.js';
+import User from './User.js';
+import NotificationPopup from './NotificationPopup.js';
 
 export {
   Header,
@@ -30,4 +34,8 @@ export {
   LikeButton,
   ErrorModal,
   DeleteButton,
+  LoginForm,
+  User,
+  NotificationPopup,
+  SignupForm,
 };
