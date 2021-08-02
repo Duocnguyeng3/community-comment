@@ -15,7 +15,26 @@ const authController = require('./controllers/authController');
 
 // 1. MIDDLEWARE
 const app = express();
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'", 'http://127.0.0.1:3000/*'],
+        baseUri: ["'self'"],
+        fontSrc: ["'self'", 'https:', 'data:'],
+        scriptSrc: [
+          "'self'",
+          'https://*.stripe.com',
+          'https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js',
+        ],
+        frameSrc: ["'self'", 'https://*.stripe.com'],
+        objectSrc: ["'none'"],
+        styleSrc: ["'self'", 'https:', "'unsafe-inline'"],
+        upgradeInsecureRequests: [],
+      },
+    },
+  })
+);
 const limiter = rateLimit({
   max: 100,
   windowMs: 60 * 60 * 1000,
