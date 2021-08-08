@@ -7,7 +7,7 @@ import { useCommentContext } from '../context/comment_context.js';
 import { LikeButton, DeleteButton } from '../components';
 
 // import
-function CommentCard({ likes, title, createdAt, comment, _id, createdBy, likedBy }) {
+function CommentCard({ likes, title, createdAt, comment, _id, createdBy, likedBy, isYour }) {
   const { patchLike, deleteComment } = useSingleCommentContext();
   const { updateLikeCount, updateDeleteComment } = useCommentContext();
   // đặt State riêng cho mỗi card để khi loading, nút like hiện khác biệt
@@ -41,7 +41,7 @@ function CommentCard({ likes, title, createdAt, comment, _id, createdBy, likedBy
         <span className="like-count">{likes}</span>
       </div>
       <div className="delete-button">
-        <DeleteButton handleDelete={handleDelete} />
+        <DeleteButton handleDelete={handleDelete} isYour={isYour} />
       </div>
     </Wrapper>
   );

@@ -21,7 +21,6 @@ function LikeDetail({ singleComment, loading, error }) {
   if (loading || error) {
     return <></>;
   }
-
   return (
     <Wrapper>
       <hr />

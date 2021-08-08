@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
-import { Home, Error, CommentPage, CreateCommentPage, Login, Signup } from './pages';
+import { Home, Error, CommentPage, CreateCommentPage, Login, Signup, PrivateRoute } from './pages';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import { NotificationPopup } from './components';
 function App() {
@@ -13,9 +13,9 @@ function App() {
             <Home />
           </Route>
           <Route path="/comment/:id" children={<CommentPage />} />
-          <Route exact path="/create-comment">
+          <PrivateRoute exact path="/create-comment">
             <CreateCommentPage />
-          </Route>
+          </PrivateRoute>
           <Route exact path="/login">
             <Login />
           </Route>

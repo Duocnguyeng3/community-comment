@@ -1,33 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Header, CommentDetail, LikeDetail, ErrorModal } from '../components';
+import { Header, CommentDetail, LikeDetail, BackButton } from '../components';
 import { useParams, Link } from 'react-router-dom';
 import { comment_base_url } from '../utils/constants.js';
 import { useCommentContext } from '../context/comment_context.js';
 import { FaAngleLeft } from 'react-icons/fa';
 
 function CommentPage() {
-  const [loading, setLoading] = useState(true);
   const { id } = useParams();
   const {
     fetchSingleComment,
     single_comment,
-    // single_comment_loadings: loading,
+    single_comment_loadings: loading,
     single_comment_error: error,
   } = useCommentContext();
 
   useEffect(() => {
-    fetchSingleComment(`${comment_base_url}/comments/${id}`).then(() => setLoading(false));
+    fetchSingleComment(`${comment_base_url}/comments/${id}`);
   }, [id]);
 
   return (
     <Wrapper>
       <Header />
-      <Link to="/" className="back-button">
-        <FaAngleLeft />
-      </Link>
+      <BackButton />
       <div className="comment-detail-box">
-        <CommentDetail singleComment={single_comment} loading={loading} error={error} />
+        <CommentDetail
+          singleComment={single_comment}
+          loading={loading}
+          error={error}
+          fetchSingleComment={fetchSingleComment}
+        />
       </div>
       <div className="like-detail-box">
         <LikeDetail singleComment={single_comment} loading={loading} error={error} />
@@ -36,16 +38,12 @@ function CommentPage() {
   );
 }
 const Wrapper = styled.main`
-  .back-button {
-    display: block;
-    margin-top: 2rem;
-    margin-left: 2rem;
-    color: var(--color-secondary);
-    font-size: 5rem;
-  }
   .comment-detail-box {
     padding: 5rem;
     margin-bottom: 5rem;
+    @media only screen and (max-width: 37.5em) {
+      padding: 2rem;
+    }
   }
   .like-detail-box {
     width: 100vw;
@@ -54,5 +52,3 @@ const Wrapper = styled.main`
   }
 `;
 export default CommentPage;
-
-//  loading={loading}

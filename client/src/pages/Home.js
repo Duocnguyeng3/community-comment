@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Header, CommentBox, ErrorModal } from '../components';
+import React from 'react';
+import { Header, CommentBox, Pagination } from '../components';
 
 function Home() {
   return (
@@ -7,6 +7,7 @@ function Home() {
       {/* <ErrorModal /> */}
       <Header />
       <CommentBox />
+      <Pagination />
     </main>
   );
 }

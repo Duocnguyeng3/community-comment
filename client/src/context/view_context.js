@@ -1,7 +1,4 @@
-import axios from 'axios';
 import React, { useContext, useReducer } from 'react';
-// import reducer from '../reducer/commentReducer';
-import { comment_base_url } from '../utils/constants';
 
 const reducer = (state, action) => {
   switch (action.type) {

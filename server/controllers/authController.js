@@ -62,11 +62,10 @@ exports.login = catchAsync(async (req, res, next) => {
 exports.isLoggedIn = catchAsync(async (req, res, next) => {
   if (req.cookies?.jwt) {
     const decode = await promisify(jwt.verify)(req.cookies.jwt, process.env.JWT_SECRET);
-    const currentUser = User.findById(decode.id);
+    const currentUser = await User.findById(decode.id);
     if (!currentUser) return next();
-    res.locals.user = currentUser;
+    req.user = currentUser;
   }
-  res.locals.user = 'duoc nguyen';
   next();
 });
 
@@ -89,3 +88,14 @@ exports.protect = catchAsync(async (req, res, next) => {
   req.user = freshUser;
   next();
 });
+
+exports.restrictTo =
+  (...roles) =>
+  (req, res, next) => {
+    // roles: [admin, lead-guide] , user
+    if (!roles.includes(req.user.role)) {
+      next(new AppError('Your do not have permission to perfom this action', 403));
+    }
+
+    next();
+  };

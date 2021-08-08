@@ -7,11 +7,18 @@ const AppError = require('../utils/appError');
 
 exports.getAllComment = async (req, res, next) => {
   try {
+    const user = req.user || undefined;
+
     // Filtering
-    let { sort, fields, limit, page, ...query } = req.query;
+    let { sort, fields, limit, page, createdByMe, ...query } = req.query;
     const queryString = JSON.stringify(query).replace(/\b(lt|lte|gt|gte)\b/, (match) => `$${match}`);
     query = JSON.parse(queryString);
     const queryObj = Comment.find(query);
+
+    // filter createdByMe
+    if (createdByMe) {
+      queryObj.find({ 'createdBy.userName': user?.name });
+    }
 
     // sort
     if (sort) {
@@ -26,18 +33,23 @@ exports.getAllComment = async (req, res, next) => {
       const selectFields = fields.split(',').join(' ');
       queryObj.select(selectFields);
     }
+
     // limit
     const limitResults = +limit || 20;
     const numPage = +page || 1;
-    const skip = (numPage - 1) * limit;
+    const skip = (numPage - 1) * limitResults;
 
-    queryObj.skip(skip).limit(limitResults);
+    const queryJson = queryObj.getQuery();
+    const commentsQuery = queryObj.skip(skip).limit(limitResults);
+    const [comments, count] = await Promise.all([commentsQuery, Comment.countDocuments(queryJson)]);
 
-    const comments = await queryObj;
+    const allPages = Math.ceil(count / limitResults);
 
     res.status(200).json({
       status: 'success',
       data: {
+        allPages,
+        currentPage: numPage,
         results: comments.length,
         comments,
       },

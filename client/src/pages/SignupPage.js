@@ -1,16 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { Header, SignupForm } from '../components';
-import { Link } from 'react-router-dom';
-import { FaAngleLeft } from 'react-icons/fa';
+import { Header, SignupForm, BackButton } from '../components';
 
 function LoginPage() {
   return (
     <Wrapper>
       <Header />
-      <Link to="/" className="back-button">
-        <FaAngleLeft />
-      </Link>
+      <BackButton />
+      <h2 className="warning">Please signup before creating a comment</h2>
       <div className="login-box">
         <SignupForm />
       </div>
@@ -18,12 +15,10 @@ function LoginPage() {
   );
 }
 const Wrapper = styled.main`
-  .back-button {
-    display: block;
-    margin-top: 2rem;
-    margin-left: 2rem;
-    color: var(--color-secondary);
-    font-size: 5rem;
+  .warning {
+    margin-left: 5rem;
+    color: red;
+    font-size: 2rem;
   }
 `;
 export default LoginPage;

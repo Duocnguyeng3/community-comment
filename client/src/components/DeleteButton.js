@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useSingleCommentContext } from '../context/single_comment_context.js';
-// import
-function DeleteButton({ handleDelete }) {
+import { useAuthContext } from '../context/auth_context';
+import { useViewContext } from '../context/view_context';
+
+function DeleteButton({ handleDelete, isYour }) {
   const { delete_loadings: loading } = useSingleCommentContext();
+  const { user, isAuth } = useAuthContext();
+  const { showNotification } = useViewContext();
 
   // đặt State riêng cho mỗi card để khi loading, nút like hiện khác biệt
   const [deleteLoading, setDeleteLoading] = useState(false);
 
   const handleDeleteButton = () => {
+    if (!user && !isAuth)
+      return showNotification('fail', 'You are not logged in, please log in and try again');
     setDeleteLoading(true);
     handleDelete();
   };
@@ -16,6 +22,8 @@ function DeleteButton({ handleDelete }) {
   useEffect(() => {
     if (!loading) setDeleteLoading(false);
   }, [loading]);
+
+  if (!isYour && user.role !== 'admin') return <></>;
 
   return (
     <Wrapper onClick={() => handleDeleteButton()} disabled={deleteLoading}>

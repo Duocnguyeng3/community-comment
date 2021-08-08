@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { FaRegWindowClose } from 'react-icons/fa';
 import { AiOutlineClose } from 'react-icons/ai';
 import { useViewContext } from '../context/view_context.js';
 

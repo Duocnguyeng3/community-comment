@@ -12,6 +12,7 @@ function Sort() {
           <option value="most-likes">Most likes</option>
           <option value="date-newest">Date (newest)</option>
           <option value="date-oldest">Date (oldest)</option>
+          <option value="your-comments">Your comments</option>
         </select>
       </form>
     </Wrapper>

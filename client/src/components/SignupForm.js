@@ -4,6 +4,7 @@ import { useAuthContext } from '../context/auth_context.js';
 
 function Login() {
   const { signup, login_loading } = useAuthContext();
+
   return (
     <Wrapper onSubmit={signup}>
       <h2 className="title">SIGN UP FOR AN ACCOUNT</h2>

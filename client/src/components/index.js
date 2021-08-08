@@ -17,6 +17,8 @@ import LoginForm from './LoginForm.js';
 import SignupForm from './SignupForm.js';
 import User from './User.js';
 import NotificationPopup from './NotificationPopup.js';
+import BackButton from './BackButton.js';
+import Pagination from './Pagination.js';
 
 export {
   Header,
@@ -38,4 +40,6 @@ export {
   User,
   NotificationPopup,
   SignupForm,
+  BackButton,
+  Pagination,
 };

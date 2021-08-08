@@ -32,10 +32,20 @@ const CommentSchema = new mongoose.Schema({
     type: [{ userId: String, userName: String }],
   },
 });
+
 CommentSchema.pre('save', function (next) {
   this.likes = this.likedBy.length;
   next();
 });
+// CommentSchema.pre(/^find/, function (next) {
+//   this.start = Date.now();
+//   next();
+// });
+// CommentSchema.post(/^find/, function (docs, next) {
+//   console.log(`Query took ${Date.now() - this.start} milisecond`); // "this" refer to query
+//   next();
+// });
+
 const Comment = mongoose.model('Comment', CommentSchema);
 
 module.exports = Comment;

@@ -80,11 +80,14 @@ const Wrapper = styled.div`
     outline: none;
     margin-top: 2rem;
     background-color: var(--color-primary);
-    color: var(--color-secondary);
+    color: var(--color-tertiary);
     font-weight: 600;
     margin-top: 5rem;
-    font-size: 1.8rem;
+    font-size: 2rem;
     height: 30rem;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 1rem;
+    padding-top: 2rem;
   }
   .error-message {
     font-size: 2rem;

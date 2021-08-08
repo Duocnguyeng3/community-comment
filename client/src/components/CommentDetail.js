@@ -2,14 +2,19 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { getDate } from '../utils/getDate.js';
 import { Loading, Error } from '../components';
+import { comment_base_url } from '../utils/constants.js';
 
-function CommentDetail({ singleComment, error, loading }) {
+function CommentDetail({ singleComment, error, loading, fetchSingleComment }) {
   if (loading) return <Loading />;
-  if (error) return <Error />;
-  const { title, createdAt, comment } = singleComment;
+  if (error) return <Error handleReload={() => fetchSingleComment(comment_base_url)} />;
+
+  const { title, createdAt, comment, createdBy } = singleComment;
   return (
     <Wrapper>
-      <span>{getDate(createdAt)}</span>
+      <div className="comment-info">
+        <span>{getDate(createdAt)}</span>
+        <span>Created by: {createdBy?.userName}</span>
+      </div>
       <h2 className="detail-title">{title}</h2>
       <p className="detail-comment">{comment}</p>
     </Wrapper>
@@ -17,7 +22,15 @@ function CommentDetail({ singleComment, error, loading }) {
 }
 const Wrapper = styled.div`
   position: relative;
-  color: var(--color-secondary);
+  color: var(--color-tertiary);
+
+  .comment-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 2rem;
+    justify-self: center;
+    color: var(--color-primary-light-2);
+  }
   .detail-title {
     margin-top: 2rem;
     font-size: 4rem;
@@ -25,7 +38,9 @@ const Wrapper = styled.div`
   }
   .detail-comment {
     margin-top: 5rem;
-    font-size: 1.6rem;
+    font-size: 2rem;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.6;
     white-space: pre-wrap;
     max-width: 100rem;
   }
@@ -37,12 +52,6 @@ const Wrapper = styled.div`
       cursor: pointer;
     }
   }
-  span {
-    font-size: 2rem;
-    justify-self: center;
-    color: var(--color-primary-light-2);
-  }
-
   .like-box {
     color: var(--color-secondary);
     display: flex;

@@ -5,13 +5,13 @@ const authController = require('../controllers/authController');
 
 router
   .route('/')
-  .get(commentController.getAllComment)
+  .get(authController.isLoggedIn, commentController.getAllComment)
   .post(authController.protect, commentController.createNewComment);
 router
   .route('/:id')
   .get(commentController.getComment)
   .patch(authController.protect, commentController.updateComment)
-  .delete(authController.protect, commentController.deleteComment);
+  .delete(authController.protect, authController.restrictTo('admin'), commentController.deleteComment);
 
 router.route('/:id/react').patch(authController.protect, commentController.reactComment);
 module.exports = router;

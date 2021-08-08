@@ -4,7 +4,15 @@ const reducer = (state, action) => {
       return { ...state, comment_loadings: true, comment_error: false };
     }
     case 'GET_COMMENT_SUCCESS': {
-      return { ...state, comment_loadings: false, comment_error: false, comments: action.payload.comments };
+      const { currentPage, allPages, comments } = action.payload;
+      return {
+        ...state,
+        comment_loadings: false,
+        comment_error: false,
+        comments,
+        currentPage,
+        allPages,
+      };
     }
     case 'GET_COMMENT_ERROR': {
       return { ...state, comment_loadings: false, comment_error: true };
@@ -44,6 +52,11 @@ const reducer = (state, action) => {
       const id = action.payload.id;
       const newComments = state.comments.filter((cmt) => cmt._id !== id);
       return { ...state, comments: newComments };
+    }
+
+    case 'CHANGE_PAGE': {
+      const { page } = action.payload;
+      return { ...state, currentPage: page };
     }
 
     default:

@@ -3,16 +3,20 @@ import styled from 'styled-components';
 import { BsHeart, BsHeartFill } from 'react-icons/bs';
 import { useSingleCommentContext } from '../context/single_comment_context.js';
 import { useAuthContext } from '../context/auth_context';
+import { useViewContext } from '../context/view_context';
 
 function LikeButton({ handleLike, likedBy }) {
   const { patch_like_loadings: loading } = useSingleCommentContext();
   const [likeType, setLikeType] = useState(true);
-  const { user } = useAuthContext();
+  const { user, isAuth } = useAuthContext();
+  const { showNotification } = useViewContext();
 
   // đặt State riêng cho mỗi card để khi loading, nút like hiện khác biệt
   const [likeLoading, setLikeLoading] = useState(false);
 
   const handleLikeButton = async () => {
+    if (!user && !isAuth)
+      return showNotification('fail', 'You are not logged in, please log in and try again');
     setLikeLoading(true);
     await handleLike(likeType);
   };
