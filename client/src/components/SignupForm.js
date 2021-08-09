@@ -11,22 +11,29 @@ function Login() {
       <label className="label" htmlFor="name">
         name address
       </label>
-      <input name="name" id="name" type="text" placeholder="name" />
+      <input name="name" id="name" type="text" placeholder="name" required minLength={4} maxLength={32} />
 
       <label className="label" htmlFor="email">
         Email address
       </label>
-      <input name="email" id="email" type="email" placeholder="you@examle.com" />
+      <input name="email" id="email" type="email" placeholder="you@examle.com" maxLength={100} required />
 
       <label className="label" htmlFor="password">
         Password
       </label>
-      <input name="password" id="password" type="password" placeholder="**********" />
+      <input name="password" id="password" type="password" placeholder="**********" minLength={6} required />
 
       <label className="label" htmlFor="passwordConfirm">
         Password Confirm
       </label>
-      <input name="passwordConfirm" id="passwordConfirm" type="password" placeholder="**********" />
+      <input
+        name="passwordConfirm"
+        id="passwordConfirm"
+        type="password"
+        placeholder="**********"
+        minLength={6}
+        required
+      />
       {login_loading ? (
         <div className="loader login-loader"></div>
       ) : (

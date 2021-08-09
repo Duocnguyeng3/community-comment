@@ -30,7 +30,7 @@ const Wrapper = styled.div`
     margin-right: 2rem;
   }
   select {
-    font-size: 1.6rem;
+    font-size: 2.2rem;
     border: none;
     background-color: var(--color-primary);
     color: var(--color-secondary);

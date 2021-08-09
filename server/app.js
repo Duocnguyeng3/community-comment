@@ -1,7 +1,6 @@
 const fs = require('fs');
 const path = require('path');
 const express = require('express');
-const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
@@ -12,6 +11,7 @@ const userRouter = require('./routes/userRoutes');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 const authController = require('./controllers/authController');
+const limitRateController = require('./controllers/limitRateController');
 
 // 1. MIDDLEWARE
 const app = express();
@@ -35,12 +35,11 @@ app.use(
     },
   })
 );
-const limiter = rateLimit({
-  max: 100,
-  windowMs: 60 * 60 * 1000,
-  message: 'Too many resquest form this IP, please try again in a hour',
-});
-app.use('/api', limiter);
+
+app.use('/api', limitRateController.limiter);
+app.post('/api/v1/comments', limitRateController.newCommentlimiter);
+app.post('/api/v1/user/signup', limitRateController.newAccountlimiter);
+
 app.use(express.json({ limit: '10kb' }));
 app.use(cookieParser());
 app.use(mongoSanitize()); // remove the $ sign in user input

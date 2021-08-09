@@ -51,8 +51,7 @@ exports.login = catchAsync(async (req, res, next) => {
   if (!email || !password) next(new AppError('Please provide email and password', 404));
 
   const user = await User.findOne({ email }).select('+password');
-  const checkPassword = await user.correctPassword(password, user.password);
-  if (!user || !checkPassword) {
+  if (!user || !(await user.correctPassword(password, user.password))) {
     return next(new AppError('Incorrect email or password', 401));
   }
 
@@ -99,3 +98,14 @@ exports.restrictTo =
 
     next();
   };
+
+// exports.limitHandler = (message) =>
+//   function (req, res, next) {
+//     console.log(req.rateLimit.limit);
+//     console.log(req.rateLimit.current);
+//     console.log(req.rateLimit.remaining);
+//     console.log(req.rateLimit.resetTime);
+//     return res.status(429).json({
+//       message,
+//     });
+//   };

@@ -4,7 +4,6 @@ import { Header, CommentBox, Pagination } from '../components';
 function Home() {
   return (
     <main>
-      {/* <ErrorModal /> */}
       <Header />
       <CommentBox />
       <Pagination />
