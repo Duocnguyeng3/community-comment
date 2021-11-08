@@ -22,7 +22,7 @@ export const CommentProvider = ({ children }) => {
   const fetchComments = async (url = all_comment_url) => {
     dispatch({ type: 'GET_COMMENT_BEGIN' });
     try {
-      const res = await axios(`${url}?page=${state.currentPage}`);
+      const res = await axios(`${url}`);
       if (!res) return dispatch({ type: 'GET_COMMENT_ERROR' });
       const comments = res.data?.data?.comments;
       const isArray = comments instanceof Array;
@@ -54,6 +54,7 @@ export const CommentProvider = ({ children }) => {
   const handleSort = (e) => {
     e.preventDefault();
     const sortBy = e.target.value;
+    console.log(sortBy);
     if (sortBy === 'date-newest') fetchComments(`${all_comment_url}?sort=-createdAt`);
     if (sortBy === 'date-oldest') fetchComments(`${all_comment_url}?sort=createdAt`);
     if (sortBy === 'most-likes') fetchComments(`${all_comment_url}?sort=-likes`);
@@ -82,7 +83,7 @@ export const CommentProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    fetchComments(`${all_comment_url}`);
+    fetchComments(`${all_comment_url}?page=${state.currentPage}`);
   }, [state.currentPage]);
 
   return (

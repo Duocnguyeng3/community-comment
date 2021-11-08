@@ -1,4 +1,4 @@
-const { query } = require('express');
+// const { query } = require('express');
 const fs = require('fs');
 const Comment = require('../model/commentModel');
 const commentsLocation = `${__dirname}/../../dev-data/data/comments.json`;
@@ -23,9 +23,10 @@ exports.getAllComment = async (req, res, next) => {
     // sort
     if (sort) {
       const sortBy = sort.split(',').join(' ');
+      // console.log(sortBy);
       queryObj.sort(sortBy);
     } else {
-      queryObj.sort({ likes: -1 });
+      queryObj.sort('-createdAt');
     }
 
     // fields

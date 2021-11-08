@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { BsHeart, BsHeartFill } from 'react-icons/bs';
+import { ThumbUpAlt, ThumbUpOutlined } from '@material-ui/icons';
 import { useSingleCommentContext } from '../context/single_comment_context.js';
 import { useAuthContext } from '../context/auth_context';
 import { useViewContext } from '../context/view_context';
@@ -39,7 +39,7 @@ function LikeButton({ handleLike, likedBy }) {
           <div className="loader"></div>
         </div>
       )}
-      {likeType ? <BsHeart /> : <BsHeartFill />}
+      {likeType ? <ThumbUpOutlined /> : <ThumbUpAlt />}
       Like
     </Wrapper>
   );

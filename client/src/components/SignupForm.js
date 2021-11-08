@@ -2,14 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import { useAuthContext } from '../context/auth_context.js';
 
-function Login() {
+function Signup() {
   const { signup, login_loading } = useAuthContext();
 
   return (
     <Wrapper onSubmit={signup}>
       <h2 className="title">SIGN UP FOR AN ACCOUNT</h2>
       <label className="label" htmlFor="name">
-        name address
+        Name
       </label>
       <input name="name" id="name" type="text" placeholder="name" required minLength={4} maxLength={32} />
 
@@ -91,4 +91,4 @@ const Wrapper = styled.form`
     margin: 0 auto;
   }
 `;
-export default Login;
+export default Signup;

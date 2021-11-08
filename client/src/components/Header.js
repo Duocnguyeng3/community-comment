@@ -2,12 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { User } from '../components';
+// import {} from '../../public/'
+import { CardMedia } from '@material-ui/core';
 function Header() {
   return (
     <Wrapper>
-      <Link to="/">
-        <h2>Community</h2>
-      </Link>
+      <img alt="logo" src={process.env.PUBLIC_URL + '/community_logo.png'} />
       <User />
     </Wrapper>
   );
