@@ -2,17 +2,31 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useAuthContext } from '../context/auth_context';
+import { Button } from '@material-ui/core';
+import theme from '../theme';
+import { makeStyles } from '@material-ui/core/styles';
+import { Typography } from '@material-ui/core';
+import { LogoutIcon } from '@material-ui/icons';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    backgroundColor: theme.palette.neutral.main,
+  },
+}));
 
 function Header() {
   const { user, isAuthen, logout } = useAuthContext();
-
+  const classes = useStyles();
   if (user && isAuthen)
     return (
       <Wrapper>
-        <h3 className="user-name">Welcome, {user.name}</h3>
-        <button className="btn log-user" onClick={logout}>
+        {/* <h3 className="user-name">Welcome, {user.name}</h3> */}
+        <Typography variant="h3" align="center" color="primary" className="user-name">
+          Welcome, {user.name}
+        </Typography>
+        <Button color="primary" variant="contained" onClick={logout}>
           Log out
-        </button>
+        </Button>
       </Wrapper>
     );
 
@@ -42,13 +56,13 @@ const Wrapper = styled.header`
   .user-name {
   }
   .log-user {
-    background-color: var(--color-decoration);
+    /* background-color: var(--color-decoration); */
     text-transform: uppercase;
-    color: var(--color-secondary);
+    /* color: var(--color-secondary); */
 
-    &:hover {
+    /* &:hover {
       background-color: var(--color-decoration-light);
-    }
+    } */
   }
   .sign-up {
     padding: 2rem;
