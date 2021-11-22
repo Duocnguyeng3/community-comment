@@ -1,9 +1,18 @@
+/* 
 :root {
   --color-primary: #000;
-  /* --color-primary: #fff; */
   --color-secondary: #fff;
   --color-tertiary: #d0d0d5;
-  /* --color-tertiary: #000; */
+  --color-primary-light: #5d5d5d;
+  --color-primary-light-2: #bbb;
+  --color-decoration: #06755f;
+  --color-decoration-light: #19a88c;
+} 
+*/
+:root {
+  --color-primary: #fff;
+  --color-secondary: #000;
+  --color-tertiary: #d0d0d5;
   --color-primary-light: #5d5d5d;
   --color-primary-light-2: #bbb;
   --color-decoration: #06755f;

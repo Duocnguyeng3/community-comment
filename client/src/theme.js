@@ -1,5 +1,6 @@
 import { red, orange } from '@material-ui/core/colors';
-import { createTheme } from '@material-ui/core/styles';
+// import { createTheme } from '@material-ui/core/styles';
+import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
   status: {
@@ -8,7 +9,11 @@ const theme = createTheme({
   palette: {
     neutral: {
       main: '#64748B',
+      // main: '#db0473',
       contrastText: '#fff',
+    },
+    disabled: {
+      main: '#db0473',
     },
     primary: {
       light: '#757ce8',

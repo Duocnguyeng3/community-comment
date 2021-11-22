@@ -8,11 +8,12 @@ import { InputProvider } from './context/input_context.js';
 import { SingleCommentProvider } from './context/single_comment_context.js';
 import { AuthProvider } from './context/auth_context.js';
 import { ViewProvider } from './context/view_context.js';
-import { MuiThemeProvider } from '@material-ui/core/styles';
+// import { MuiThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider } from '@mui/material/styles'
 import theme from './theme';
 
 ReactDOM.render(
-  <MuiThemeProvider theme={theme}>
+  <ThemeProvider theme={theme}>
     <ViewProvider>
       <AuthProvider>
         <CommentProvider>
@@ -24,7 +25,7 @@ ReactDOM.render(
         </CommentProvider>
       </AuthProvider>
     </ViewProvider>
-  </MuiThemeProvider>,
+  </ThemeProvider>,
   document.getElementById('root')
 );
 

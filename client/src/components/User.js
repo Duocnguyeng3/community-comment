@@ -4,29 +4,34 @@ import { Link } from 'react-router-dom';
 import { useAuthContext } from '../context/auth_context';
 import { Button } from '@material-ui/core';
 import theme from '../theme';
-import { makeStyles } from '@material-ui/core/styles';
-import { Typography } from '@material-ui/core';
-import { LogoutIcon } from '@material-ui/icons';
+// import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
+import { Typography, Stack, Divider } from '@mui/material';
+import LogoutIcon from '@mui/icons-material/Logout';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    backgroundColor: theme.palette.neutral.main,
-  },
-}));
-
+// const useStyles = makeStyles((theme) => ({
+//   backgroundColor: theme.palette.neutral.main,
+// }));
+// const useStyles = makeStyles((theme) => ({
+//   backgroundColor: theme.palette.neutral.main,
+//   color: '#db0473',
+// }));
+// console.log(typeof theme.palette.neutral.main);
 function Header() {
   const { user, isAuthen, logout } = useAuthContext();
-  const classes = useStyles();
+  // const classes = useStyles();
   if (user && isAuthen)
     return (
       <Wrapper>
+        <Stack direction="row" spacing={2} divider={<Divider orientation="vertical" flexItem />}>
+          <Typography variant="h3" align="center" color="primary">
+            Welcome, {user.name}
+          </Typography>
+          <Button color="neutral" variant="contained" onClick={logout} startIcon={<LogoutIcon />}>
+            Log out
+          </Button>
+        </Stack>
         {/* <h3 className="user-name">Welcome, {user.name}</h3> */}
-        <Typography variant="h3" align="center" color="primary" className="user-name">
-          Welcome, {user.name}
-        </Typography>
-        <Button color="primary" variant="contained" onClick={logout}>
-          Log out
-        </Button>
       </Wrapper>
     );
 
@@ -42,18 +47,16 @@ function Header() {
   );
 }
 
+// display: flex;
+// align-items: center;
+// background-color: var(--color-primary);
+// overflow: hidden;
+// color: var(--color-secondary);
+
 const Wrapper = styled.header`
-  display: flex;
-  align-items: center;
-  background-color: var(--color-primary);
-  overflow: hidden;
-  color: var(--color-secondary);
-  font-size: 1.8rem;
   a {
     text-decoration: none;
     color: var(--color-secondary);
-  }
-  .user-name {
   }
   .log-user {
     /* background-color: var(--color-decoration); */

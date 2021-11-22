@@ -48,7 +48,7 @@ function CommentCard({ likes, title, createdAt, comment, _id, createdBy, likedBy
 }
 const Wrapper = styled.div`
   position: relative;
-  color: var(--color-primary);
+  color: var(--color-secondary);
   .card {
     text-decoration: none;
     color: inherit;
